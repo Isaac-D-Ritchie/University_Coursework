@@ -68,14 +68,13 @@ def get_non_empty_string(prompt):
             print("Invalid input, try again")
 
 
-
+expenses: list[dict] = [{"expense_name": "tea", "Price": 2.25, "category": "Food"}]
 while True:
     try:
-        expenses: list[dict] = [{"expense_name": "tea", "Price": 2.25, "category": "Food"}]
 
         print("Current expenses:")
         for expense in expenses:
-            print(f"\nname: {expense["expense_name"]},\nprice: £{expense["Price"]:.2f},\ncat: {expense["category"]}\n")
+            print(f"\nname: {expense['expense_name']},\nprice: £{expense['Price']:.2f},\ncat: {expense['category']}\n")
 
         name = get_non_empty_string("Enter new expense name:")
         amount = get_valid_positive_float("Enter new expense price £:")
@@ -85,7 +84,7 @@ while True:
         print("Expense Added!")
         print("All expenses:")
         for expense in expenses:
-            print(f"\nname: {expense["expense_name"]},\nprice: £{expense["Price"]:.2f},\ncat: {expense["category"]}\n")
+            print(f"\nname: {expense['expense_name']},\nprice: £{expense['Price']:.2f},\ncat: {expense['category']}\n")
 
         total = 0
         for expense in expenses:
