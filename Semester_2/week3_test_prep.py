@@ -93,11 +93,29 @@ def get_valid_date() -> str:
             get_valid_date()
 
               
-          
+def get_valid_choice(prompt, choices: list[str]) -> str:
+    lowercase_options = {c.lower(): c for c in choices}
+    while True:
+        raw_input = safe_input(prompt)
+        sanitized_input = raw_input.strip().lower()
+
+        if sanitized_input == "":
+            print("Error: Input cannot be empty")
+            continue
+
+        if sanitized_input not in lowercase_options:
+            options = " - ".join(choices)
+            print(f"Error: Please select from {options}")
+            continue
+
+        return lowercase_options[sanitized_input]
 
 
 
 if __name__ == "__main__":
+    choice = get_valid_choice("Enter category: ", ["One", "Two", "Three"])
+    print(choice)
+
     date = get_valid_date()
     print(date)
 
