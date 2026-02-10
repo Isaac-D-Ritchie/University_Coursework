@@ -14,6 +14,7 @@ def safe_input(prompt: str) -> str:
     except (KeyboardInterrupt, EOFError):
         return ""
     
+
 def get_non_empty_string(prompt: str) -> str:
     while True:
             raw_input = safe_input(prompt)
@@ -24,6 +25,7 @@ def get_non_empty_string(prompt: str) -> str:
             else:
                  return sanitized_input
             
+
 def get_valid_float(prompt: str, min_range = None, max_range = None) -> float:
     while True:
         raw_input = safe_input(prompt)
@@ -43,6 +45,25 @@ def get_valid_float(prompt: str, min_range = None, max_range = None) -> float:
                print("Error: invalid float input")
                continue
         
+def get_valid_integer(prompt:str, min_range = None, max_range = None) -> int:
+    while True:
+        raw_input = safe_input(prompt)
+        sanitized_input = raw_input.strip()
+        try:
+            int_input = int(sanitized_input)
+
+            if min_range is not None and int_input < min_range:
+                print(f"Error: value must be more than {min_range}")
+                continue
+            if max_range is not None and int_input > max_range:
+                print(f"Error: value must be less than {max_range}")
+                continue
+
+            return int_input
+        except ValueError:
+               print("Error: invalid float input")
+               continue
+
 def load_inventory(inventory: list[dict]) -> None:
     try:
         with open ("test_prep_inventory.json", "w") as f:
@@ -52,8 +73,34 @@ def load_inventory(inventory: list[dict]) -> None:
         print(f"Error: {e}")
         return
         
+
+def get_valid_date() -> str:
+     while True:
+        year = get_valid_integer("Enter year (YYYY): ", 1900, 2099)
+        month = get_valid_integer("Enter month (MM):", 1, 12)
+        day = get_valid_integer("Enter day (DD):", 1, 31)
+        full_date = f"{year}-{month:02}-{day:02}"
         
+        while True:
+            confirmation = safe_input(f"Is {full_date} correct? (Y/N)").strip()
+            if confirmation == "y":
+                return full_date
+            if confirmation == "n":
+                break
+            else:
+                print("Invalid input, try Y or N")
+                continue
+            get_valid_date()
+
+              
+          
+
+
+
 if __name__ == "__main__":
+    date = get_valid_date()
+    print(date)
+
     float = get_valid_float("Enter float", 0, 10)
     print(float)
     string = get_non_empty_string("Enter non empty string")
