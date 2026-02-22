@@ -1,6 +1,6 @@
 """
-Isaac Ritchie - 26708965
-Programming 2 - Test 1
+Isaac Ritchie
+Programming 2 - Test 1 - Prep 1
 
 Design and implement a command-line-based expense Tracking
 Application using the Python programming language.
