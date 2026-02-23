@@ -15,7 +15,14 @@ The application must operate entirely via the console and must repeatedly prompt
 the user for actions until they choose to exit the program
 """
 
-def safe_input(prompt):
+def safe_input(prompt: str) -> str:
+    """
+    Function to get safe input
+    Arguments:
+        prompt - for input
+    Returns:
+        Inputed value or empty value
+    """
     try:
         raw_input = input(prompt)
         return raw_input
@@ -24,7 +31,14 @@ def safe_input(prompt):
         return""
     
 
-def get_valid_string(prompt):
+def get_valid_string(prompt: str) -> str:
+    """
+    Function to get valid string
+    Arguments:
+        Prompt - for input
+    Returns:
+        string entered
+    """
     while True:
         try:
             string_input = str(safe_input(prompt))
@@ -40,7 +54,16 @@ def get_valid_string(prompt):
     return string_input
 
 
-def get_valid_int(prompt, min_value = None, max_value = None):
+def get_valid_int(prompt: str, min_value = None, max_value = None) -> int:
+    """
+        Function to get valid intger within a given limit
+    Arguments:
+        Prompt - for input
+        min_value - for minimum value to enter
+        max_value - for maximum value to enter
+    Returns:
+        integer selected
+    """
     while True:
         try:
             int_input = int(safe_input(prompt))
@@ -60,7 +83,16 @@ def get_valid_int(prompt, min_value = None, max_value = None):
     return int_input
     
 
-def get_valid_float(prompt, min_value = None, max_value = None):
+def get_valid_float(prompt: str, min_value = None, max_value = None) -> float:
+    """
+    Function to get valid float within a given limit
+    Arguments:
+        Prompt - for input
+        min_value - for minimum value to enter
+        max_value - for maximum value to enter
+    Returns:
+        float selected
+    """
     while True:
         try:
             float_input = float(safe_input(prompt))
@@ -79,7 +111,13 @@ def get_valid_float(prompt, min_value = None, max_value = None):
 
     return float_input
 
-def view_all_expenses(expenses: list[dict]):
+
+def view_all_expenses(expenses: list[dict]) -> None:
+    """
+    Function to print all existing expenses
+    Arguments:
+        expenses - Current expense list
+    """
     if not expenses:
         print("Error: No cuurent expenses")
         return
@@ -91,7 +129,12 @@ def view_all_expenses(expenses: list[dict]):
     return
 
 
-def get_valid_date():
+def get_valid_date() -> str:
+    """
+    Function to get valid date as YYYY-MM-DD
+    Returns:
+        Full date as string 'YYYY-MM-DD'
+    """
     while True:
         day = get_valid_int("Enter day of the month (DD): ", 1, 31)
         month = get_valid_int("Enter month (MM): ", 1, 12)
@@ -109,7 +152,14 @@ def get_valid_date():
     return full_date
 
 
-def get_choice(categorys):
+def get_choice(categorys: list[str]) -> str:
+    """
+    Function to let user select specific coice
+    Arguments:
+        categorys - Expense catagries that can be selected
+    Returns:
+        Selected category name
+    """
     lowercase_cats = {c.lower(): c for c in categorys}
     options = " - ".join(categorys)
 
@@ -125,7 +175,15 @@ def get_choice(categorys):
             continue
 
 
-def add_expense(expenses, expense_cats):
+def add_expense(expenses: list[dict], expense_cats: list[str]) -> list[dict]:
+    """
+    Funtion to add expense to existing expense list
+    Arguments:
+        expenses - Current expense list
+        expense_cats - Expense catagries that can be selected
+    Returns:
+        New expenses list with added expense 
+    """
     name = get_valid_string("Enter expense name: ")
     price = f"£{get_valid_float("Enter expense price: ", 0, 9999):.2f}"
     date = get_valid_date()
@@ -135,7 +193,15 @@ def add_expense(expenses, expense_cats):
     return expenses
 
 
-def view_specific_expense(expenses, expense_cats):
+def view_specific_expense(expenses: list[dict], expense_cats: list[str]) -> None:
+    """
+    Funtion to view filtered choice via category selection
+    Arguments:
+        expenses - Current expense list
+        expense_cats - Expense catagries that can be selected
+    Returns:
+        None
+    """
     choice = get_choice(expense_cats)
     if not expenses:
         print("Error: No cuurent expenses")
@@ -147,11 +213,14 @@ def view_specific_expense(expenses, expense_cats):
             print(f"{i["Date"]:14} {i["Expense"]:10} {i["Price"]:8} {i["Category"]} ")
         else:
             continue
+    return
 
 
 
-
-def display_menu():
+def display_menu() -> None:
+    """
+    Funtion that prints menu to CLI
+    """
     print(
         "\n-- Expense Tracker --\n"
         "1. Add expenses\n"
@@ -161,7 +230,10 @@ def display_menu():
     )
 
 
-def main():
+def main() -> None:
+    """
+    Function to decide meu choice
+    """
     expenses = []
     expense_categories = ["Food","Transport","Utilities","Entertainment","Other"]
 
